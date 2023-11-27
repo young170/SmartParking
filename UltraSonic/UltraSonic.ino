@@ -1,6 +1,8 @@
 #include <EspMQTTClient.h>
 #include <ESP8266WiFi.h>
 #include <Arduino_JSON.h>
+#include <Adafruit_GFX.h>
+#include <Adafruit_SSD1306.h>
 #include <WiFiManager.h> // https://github.com/tzapu/WiFiManager
 
 #define D5 14
@@ -13,6 +15,14 @@
 const int trigPin = D6;
 const int echoPin = D5;
 
+// OLED display dimensions
+#define SCREEN_WIDTH 128    // OLED display width, in pixels
+#define SCREEN_HEIGHT 32    // OLED display height, in pixels
+#define OLED_RESET     -1   // Reset pin # (or -1 if sharing Arduino reset pin)
+#define SCREEN_ADDRESS 0x3C ///< See datasheet for Address; 0x3D for 128x64, 0x3C for 128x32
+
+Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET); // display data
+
 // WifiManager
 WiFiManager wm;
 
@@ -23,6 +33,9 @@ WiFiManager wm;
 #define MQTTPassword "csee1414"
 
 String mqttTopic = "iot/5";
+String carMqttTopic = "iot/5/car";
+
+String carCount = "Car Count: 0";
 
 EspMQTTClient mqttClient(
   mqttBroker,     // MQTT Broker server ip
@@ -50,6 +63,17 @@ void setup() {
   else {
       Serial.println("WiFi connected...");
   }
+
+  // init OLED display
+  if(!display.begin(SSD1306_SWITCHCAPVCC, SCREEN_ADDRESS)) {
+    Serial.println(F("SSD1306 allocation failed"));
+    for(;;);
+  }
+
+  display.display();
+  display.clearDisplay();
+
+  display_sensors(carCount); // init display to 0 cars
 
   pinMode(trigPin, OUTPUT); // Sets the trigPin as an Output
   pinMode(echoPin, INPUT);  // Sets the echoPin as an Input
@@ -99,9 +123,28 @@ void loop() {
 
 // on mqtt connection established, read from subscribed topic
 void onConnectionEstablished() {
-  mqttClient.subscribe(mqttTopic, [](const String & payload) {
+  mqttClient.subscribe(carMqttTopic, [](const String & payload) {
     Serial.println(payload);
+
+    carCount = payload;
+
+    display_sensors(carCount);
   });
 
   mqttClient.publish(mqttTopic, "Greetings from NodeMCU");
+}
+
+// display car count to OLED display
+void display_sensors(String payload) {
+  // setup display
+  display.clearDisplay();
+
+  display.setTextSize(1);
+  display.setTextColor(SSD1306_WHITE);
+  display.setCursor(0, 0);
+
+  // write to display buffer
+  display.println(payload);
+
+  display.display();
 }
