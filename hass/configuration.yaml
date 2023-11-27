@@ -1,0 +1,47 @@
+
+# Loads default set of integrations. Do not remove.
+default_config:
+
+homeassistant:
+  name: IoTClass-seongbin
+  latitude: 36.103295
+  longitude: 129.387009
+  elevation: 30
+   
+  customize:
+    "sensor.nth405_temperature":
+      icon: mdi:oil-temperature
+    "sensor.nth405_humidity":
+      icon: mdi:water-percent
+    "sensor.nth405_light_intensity":
+      icon: mdi:lightbulb
+
+
+lovelace:
+  mode: yaml
+  #mode: storage
+
+# Load frontend themes from the themes folder
+frontend:
+  themes: !include_dir_merge_named themes
+
+# Text to speech
+tts:
+  - platform: google_translate
+
+    #automation: !include automations.yaml
+  #script: !include scripts.yaml
+  #scene: !include scenes.yaml
+
+mqtt:
+  sensor:
+  - state_topic: "iot/5/car
+    name: car_count
+      #value_template: '{{ value_json.cds }}'
+
+group:
+  default_view:
+    name: "Parking Lot"
+    entities:
+      - sensor.car_count
+
