@@ -3,20 +3,11 @@
 default_config:
 
 homeassistant:
-  name: IoTClass-seongbin
+  name: SmartParking
   latitude: 36.103295
   longitude: 129.387009
   elevation: 30
    
-  customize:
-    "sensor.nth405_temperature":
-      icon: mdi:oil-temperature
-    "sensor.nth405_humidity":
-      icon: mdi:water-percent
-    "sensor.nth405_light_intensity":
-      icon: mdi:lightbulb
-
-
 lovelace:
   mode: yaml
   #mode: storage
@@ -29,15 +20,14 @@ frontend:
 tts:
   - platform: google_translate
 
-    #automation: !include automations.yaml
+  #automation: !include automations.yaml
   #script: !include scripts.yaml
   #scene: !include scenes.yaml
 
 mqtt:
   sensor:
-  - state_topic: "iot/5/car
+  - state_topic: "iot/5/car"
     name: car_count
-      #value_template: '{{ value_json.cds }}'
 
 group:
   default_view:
