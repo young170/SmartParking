@@ -59,7 +59,7 @@ def run2(url, mqtt_broker, mqtt_topic_car, car_count, cam_on_flag, published_tim
             bbox, label, conf = cv.detect_common_objects(im)
 
             if cam_on_flag.value > 0:
-                car_count.value = max(car_count.value, label.count('person'))
+                car_count.value = label.count('car') + label.count('bus') + label.count('truck')
                 im = draw_bbox(im, bbox, label, conf)
                 cv2.putText(im, f'Car Count: {car_count.value}', (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
                 print("car count: ", car_count.value)
