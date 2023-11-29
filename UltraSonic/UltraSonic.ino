@@ -10,7 +10,8 @@
 
 // define sound velocity in cm/uS
 #define SOUND_VELOCITY 0.034
-#define DIST_THRESH 30
+#define MIN_DIST_THRESH 13
+#define MAX_DIST_THRESH 23
 
 const int trigPin = D6;
 const int echoPin = D5;
@@ -103,7 +104,7 @@ void loop() {
   Serial.println(distance);
 
   // Check if the distance is less than 30 cm
-  if (distance < DIST_THRESH) {
+  if (distance < MAX_DIST_THRESH && distance > MIN_DIST_THRESH) {
     JSONVar myObject;
     myObject["dist"] = (int) distance;
     String jsonString = JSON.stringify(myObject);
