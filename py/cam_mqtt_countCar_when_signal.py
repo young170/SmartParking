@@ -27,9 +27,9 @@ def on_data_message(client, userdata, message, distance, cam_on_flag, car_in_fla
                 cam_on_flag.value = 10
                 car_in_flag.value = True
             elif distance.value > 10 and car_in_flag.value:
-                cam_on_flag.value = 0
+                cam_on_flag.value = 10
                 car_in_flag.value = False
-                car_count.value -= 1
+                
 
                 # Publish the updated car count
                 client.publish(mqtt_topic_car, f'Car Count: {car_count.value}')
