@@ -105,7 +105,7 @@ if __name__ == '__main__':
     mqtt_topic_car = "iot/5/car"
     mqtt_topic_data = "iot/5/data"
 
-    url = 'http://192.168.0.171/cam-hi.jpg'
+    url = 'http://192.168.0.143/cam-lo.jpg'
 
     print("started")
 
