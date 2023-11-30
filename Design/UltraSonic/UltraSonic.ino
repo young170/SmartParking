@@ -10,7 +10,7 @@
 
 // define sound velocity in cm/uS
 #define SOUND_VELOCITY 0.034
-#define DIST_THRESH 20
+#define DIST_THRESH 70
 
 const int trigPin = D6;
 const int echoPin = D5;
