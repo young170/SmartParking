@@ -41,7 +41,7 @@ def run2():
 
         bbox, label, conf = cv.detect_common_objects(im)
         
-        car_count = label.count('person')
+        car_count.value = label.count('car') + label.count('bus') + label.count('truck')
 
         im = draw_bbox(im, bbox, label, conf)
         cv2.putText(im, f'Car Count: {car_count}', (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
