@@ -23,11 +23,11 @@ def on_data_message(client, userdata, message, distance, cam_on_flag, car_in_fla
 
         if dist_value is not None:
             distance.value = float(dist_value)
-            if distance.value <= 10 and not car_in_flag.value:
-                cam_on_flag.value = 10
+            if distance.value <= 70 and not car_in_flag.value:
+                cam_on_flag.value = 70
                 car_in_flag.value = True
-            elif distance.value > 10 and car_in_flag.value:
-                cam_on_flag.value = 10
+            elif distance.value > 70 and car_in_flag.value:
+                cam_on_flag.value = 70
                 car_in_flag.value = False
                 
 
