@@ -41,3 +41,6 @@ UltraSonic/UltraSonic.ino 파일을 사용한다.
 
 * Home Assistant를 빌드 할때 사용되는 configuration.yaml을 hass/configuration.yaml 파일로 대체하야 사용한다.
 * ESP32-CAM을 통해 받은 영상 자동차 감지를 위해 py/cam_mqtt_countCar_when_signal.py를 사용해서 실행한다.
+
+### Test
+실내 환경에서 카메라 감지등 기능을 테스트하기 위해 Doc/car.png 이미지가 준비되어있다.
